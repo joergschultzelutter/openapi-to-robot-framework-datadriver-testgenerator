@@ -8,7 +8,7 @@
       "description": "Auto-generated test execution set for OpenAPI File \"REPLACE_API_NAME_REPLACE\"",
 	   "components" : [{"name" : "QA & Test"}],
 	   "labels": ["IntegrationTest"],
-	   "customfield_YOU_NEED_TO_CONFIGURE_THIS": ["ROBOT_ENVIRONMENT=TEST"],
+	   "customfield_CONFIGURE_THIS_WITH_THE_NUMERIC_CUSTOMFIELD_ID_OF_THE_XRAY_TEST_ENVIRONMENTS_FIELD": ["ROBOT_ENVIRONMENT=TEST"],
  	   "issuetype": {
           "name": "Test Execution"
        }

@@ -890,7 +890,7 @@ def write_robot_framework_includes_file(
     # Pattern for extracting the (correct) base URL
     # this may not really be necessary as all target URLs do contain the
     # same path. But for now, let's simply assume that it is required
-    regex = r"https:\/\/api.sdms.*(\/.*\/.*)"
+    regex = r"https:\/\/api.*(\/.*\/.*)"
     for server in servers:
         url = server["url"]
         matches = re.search(pattern=regex, string=url)
