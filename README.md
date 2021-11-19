@@ -11,7 +11,7 @@ Features:
   - Optional: generate Jira / XRay Test / Test Exceution tickets and associate them with the Robot Framework test
 - All input data is template-based, meaning that you can apply simple modifications to Jira / Robot template files which will then represent the foundation for the future Excel/Robot test file
 
-![Demo](https://github.com/joergschultzelutter/openapi-to-robot-framework-datadriver-testgenerator/docs/img/demo.jpg)
+![Demo](docs/img/demo.jpg)
 
 Excel features:
 
