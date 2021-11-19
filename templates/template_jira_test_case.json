@@ -1,0 +1,16 @@
+{
+	"fields": {
+		"project": {
+			"id": "CONFIGURE_THIS_SETTING_WITH_YOUR_JIRA_PROJECT_ID"
+		},
+		"summary": "Test for Service Method REPLACE_TEST_CASE_NAME_REPLACE",
+		"description": "REPLACE_DESCRIPTION_REPLACE",
+		"components": [{
+			"name": "QA & Test"
+		}],
+		"labels": ["IntegrationTest"],
+		"issuetype": {
+			"name": "Test"
+		}
+	}
+}

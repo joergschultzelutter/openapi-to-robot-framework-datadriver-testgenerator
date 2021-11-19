@@ -1,0 +1,16 @@
+{
+    "fields": {
+       "project":
+       {
+          "id": "CONFIGURE_THIS_SETTING_WITH_YOUR_JIRA_PROJECT_ID"
+       },
+      "summary": "Test Execution for OpenAPI File REPLACE_API_NAME_REPLACE",
+      "description": "Auto-generated test execution set for OpenAPI File \"REPLACE_API_NAME_REPLACE\"",
+	   "components" : [{"name" : "QA & Test"}],
+	   "labels": ["IntegrationTest"],
+	   "customfield_16286": ["ROBOT_ENVIRONMENT=TEST"],
+ 	   "issuetype": {
+          "name": "Test Execution"
+       }
+   }
+}
