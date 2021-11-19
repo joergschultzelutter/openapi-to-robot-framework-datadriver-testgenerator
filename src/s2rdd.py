@@ -50,8 +50,8 @@ required_variable_color_code = "ee9999"
 # This is our Excel generator's start columm
 # We will start adding the test's variable columns at this position
 # Note that -as always- this index is zero-based which means that the
-# first column that we add our data to is column 8 / "H"
-start_column = 7
+# first column that we add our data to is column 7 / "G"
+start_column = 6
 
 #
 # You need to configure this setting in case you want this program to generate
@@ -669,9 +669,6 @@ def write_excel_header(
     worksheet.write(0, 4, "${API_OPERATION}", bold_test_case_cell_format)
     worksheet.write(0, 5, "${EXPECTED_STATUS_CODE}", bold_test_case_cell_format)
 
-    # This acts just as a mere placeholder and can be removed
-    # You may need to amend the start_column value accordingly if you want more of these columns in your Excel sheet
-    worksheet.write(0, 6, "I am just an empty column")
     #
     # now add the sorted&unified service variable names to row 0 (headers)
     # we will start at the predefined 'start_column' value
