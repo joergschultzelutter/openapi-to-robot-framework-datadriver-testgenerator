@@ -408,7 +408,7 @@ def create_jira_tickets(
                 )
     else:
         logger.info(
-            msg="Did not create any tickets - does your openapi file contain any services at all?"
+            msg="Did not create any tickets - does your OpenAPI file contain any service methods at all?"
         )
         success = False
 
@@ -517,8 +517,10 @@ def parse_openapi_spec(openapi_filename: str):
     _success = False
     _servers = {}
 
-    parser = ResolvingParser(openapi_filename)
-
+    # Try to parse the file. If the parse process fails, check if your 
+    # OpenAPI file is compliant. See
+    # https://github.com/RonnyPfannschmidt/prance#compatibility for further 
+    # information on this topic.
     try:
         parser = ResolvingParser(openapi_filename)
     except:
@@ -572,6 +574,22 @@ def parse_openapi_spec(openapi_filename: str):
                             if "example" in requestbody["content"]["application/json"]:
                                 example = requestbody["content"]["application/json"]["example"]
 
+                # try to retrieve the list of valid HTTP return codes and
+                # assume that the very first one in the list is the one that
+                # we want for our tests. This may or may not be valid for your
+                # use case but we can at least add a default to the Excel list
+                if "responses" in parser.specification["paths"][path][operation]:
+                    responses = parser.specification["paths"][path][operation]["responses"]
+                    if len(responses) > 0:
+                        expected_status_code = list(responses.keys())[0]
+                        # Future tests expect this as integer so let"s try to convert the string
+                        try:
+                            expected_status_code = int(expected_status_code)
+                        except ValueError:
+                            # an empty string will cause a fallback to the (Robot) test's default
+                            # value of 200 (=> http200)
+                            expected_status_code = ""
+
                 service_keys = (operationid, operation, path)
                 _service_dictionary[service_keys] = {
                     "properties": properties,
@@ -580,6 +598,7 @@ def parse_openapi_spec(openapi_filename: str):
                     "tags": tags,
                     "summary": summary,
                     "description": description,
+                    "expected_status_code": expected_status_code
                 }
 
                 # Add the service method variables to our set (eliminates dupes)
@@ -653,7 +672,6 @@ def write_excel_header(
     # This acts just as a mere placeholder and can be removed
     # You may need to amend the start_column value accordingly if you want more of these columns in your Excel sheet
     worksheet.write(0, 6, "I am just an empty column")
-
     #
     # now add the sorted&unified service variable names to row 0 (headers)
     # we will start at the predefined 'start_column' value
@@ -761,6 +779,8 @@ def write_excel_test_case_data(
         summary = test_cases[test_case]["summary"]
         properties = test_cases[test_case]["properties"]
         required = test_cases[test_case]["required"]
+        expected_status_code = test_cases[test_case]["expected_status_code"]
+
 
         # Transform the 'tags' list item into a comma separated value
         if tags:
@@ -774,6 +794,7 @@ def write_excel_test_case_data(
         worksheet.write(row, 2, tags_csv_string, test_case_cell_format)
         worksheet.write(row, 3, test_case_name, test_case_cell_format)
         worksheet.write(row, 4, test_case_operation.upper(), test_case_cell_format)
+        worksheet.write(row, 5, expected_status_code, test_case_cell_format)
 
         # does this service method come with any properties?
         if properties:
@@ -1175,14 +1196,14 @@ def transform_openapi_to_robot(
     # Excel file's 'tags' section, we need to create the tickets (and enrich the internal
     # data structures prior to writing the Excel file and the Robot test file
     if jira_access_key:
-        logger.info(msg=f"PASS 2 - Create Jira tickets")
+        logger.info(msg=f"PASS 3 - Create Jira tickets")
         success = create_jira_tickets(
             jira_access_key=jira_access_key,
             test_cases=service_dictionary,
             openapi_filename=openapi_filename,
         )
     else:
-        logger.info(msg=f"skipping PASS 2 - no Jira access credentials specified")
+        logger.info(msg=f"skipping PASS 3 - no Jira access credentials provided")
         success = True
 
     if not success:
