@@ -10,6 +10,7 @@ This will install the following external dependencies:
 - [prance](https://github.com/RonnyPfannschmidt/prance)
 - [openspec-api-validator](https://github.com/p1c2u/openapi-spec-validator)
 - [xlsxwriter](https://github.com/jmcnamara/XlsxWriter)
+- [robotframework-datadriver](https://github.com/Snooz82/robotframework-datadriver) with Excel support module.
 
 
 This program may or may not work with other OpenAPI validator modules supported by ``prance``  - see [Compatibility](https://github.com/RonnyPfannschmidt/prance#compatibility). It has only been tested in combination with ``openspec-api-validator`` library and OpenAPI ``V3`` files. See [comments](https://github.com/p1c2u/openapi-spec-validator#examples) on how to enable ``V2`` support if necessary.
