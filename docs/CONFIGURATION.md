@@ -21,12 +21,12 @@ With the exception of ``template_robot_footer.robot``, all files are considered 
 
 ## Extended configuration (Jira setup)
 
-In order to configure the extended configuration for Jira, you need to retrieve configuration values __which are specific to your JIRA installation__. Please see [this article](https://community.atlassian.com/t5/Jira-Software-questions/Project-ID-and-Custom-Field-ID-on-next-gen-project/qaq-p/1095295) for additional details. In addition, this program assumes that you [have the Jira XRay plugin installed](https://www.getxray.app/). You can still use the program without XRay support but might be required to apply small changes to both code and template files.
+In order to configure the extended configuration for Jira, you need to retrieve configuration values __which are specific to your JIRA installation__. Please see [this article](https://community.atlassian.com/t5/Jira-Software-questions/Project-ID-and-Custom-Field-ID-on-next-gen-project/qaq-p/1095295) for additional details. In addition, this program assumes that you [have the Jira XRay plugin installed](https://www.getxray.app/). You can still use the program without XRay support but might be required to apply small changes to both code and template files
 
-Prerequisites:
+Prerequisites for this configurationstep:
 
 - Get your numeric Jira project ID
-- Get the ``customfield_...`` value for your Jira XRay installation's ``Test Environments`` field
+- Get the ``customfield_...`` value for your Jira/XRay installation's ``Test Environments`` field. Dependent on your setup, you can use this field for e.g. passing environment variables from Jira/XRay to other connected system component.
 - In order to allow the program to create these tickets, you need to provide a Jira Access key to the program. Contact your administrator if necessary. The access key may look like this: ``dGVu9Y3lfcm9ib3Q6M08lKADt9vTVhnchhaUnQ9``
 
 ![Jira Setup](img/jira_setup.jpg)
@@ -56,3 +56,10 @@ Finally, edit the program and change the JIRA URL's base server URL:
     JIRA_SERVER_URL = "https://jira.acme.com:443"
 
 Note that this URL is used for both 'regular' Jira operations as well as for X-Ray operations. Dependent on your Jira setup, you may need to change some subsettings in the program.
+
+### Disable XRay support
+
+There are two XRay dependencies which need to be amended:
+
+- remove the ``customfield_xxxx`` reference from the file
+- Amend the ``create_jira_tickets`` function in the code and disable the XRay API calls.
