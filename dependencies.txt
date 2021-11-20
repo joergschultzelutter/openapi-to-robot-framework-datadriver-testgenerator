@@ -1,4 +1,4 @@
 prance>=0.21.8.0
 openapi-spec-validator>=0.3.1
 xlsxwriter>=3.0.2
-robotframework-datadriver>=1.5.0
+robotframework-datadriver[xls]>=1.5.0

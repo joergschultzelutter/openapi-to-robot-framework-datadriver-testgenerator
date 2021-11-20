@@ -22,7 +22,7 @@ Example:
       "field2:: "value2"
     }
 
-However, a request body like this cannot be generated in an automated manner __with the help of this program__:
+However, a nested request body like this one cannot be generated __in an automated manner__ with the help of this program:
 
 Example:
 
@@ -34,18 +34,23 @@ Example:
 	  }
     }
 
-This does _not_ mean that you cannot use the program for the initial test generation. Once you've generated the code, you may be forced to apply some additional changes to it, though. E.g. create a dictionary for fields2-3 and then add that one to field1. Remember - this program may help you with the basic automated setup but when it comes to non-standard settings, you may be forced to apply some one-time manual magic to the generated code.
+This does _not_ mean that you cannot use the program for the initial test generation - the program will still be able to extract all fields from the OpenAPI file, add them to the Excel file and generate the Robot code for you. However, nested structures are not automatically generated and you may be forced to apply some additional changes to the code in order to create a nested JSON object.
 
-- Robot Framework test case names need to be unique. As there is a slim chance that an OpenAPI file _can_ contain test names which may result in dupes, the program tries to dodge these edge cases by forming a combination of the API call's internal name AND the HTTP method. This approach works for me but your miles may vary.
+- Robot Framework test case names need to be unique. As there is a remote chance that an OpenAPI file _may_ contain test names which could result in dupes, the program tries to dodge these edge cases by forming a combination of the API call's internal name AND the HTTP method. This approach works for me but your miles may vary.
 
+- The sample code assumes that your [robotframework-datadriver](https://github.com/Snooz82/robotframework-datadriver) version is 1.5.0 or later. The Robot demo template makes heavy usage of the Datadriver's [typed cells](https://github.com/Snooz82/robotframework-datadriver#ms-excel-and-typed-cells) option, meaning that you apply the desired target format for your input data directly to your respective Excel cell. For example, a cell containing the numeric value of 123 with an Excel _General_ format will be recognised as Integer value whereas the same value with an Excel _Text_ formatting will be treated as text. Booleans, Floats etc are supported. Some edge cases may not work out of the box and may require some manual magic, though.
 
 ## How does this program work?
 
 The program consists of six possible steps:
 
-- __Step 1__ will read the template files from your hard drive. Internally, these files' values are simply stored as strings, meaning that the program will simply search-and-replace predefined strings.
+- __Step 1__ will read the template files from your hard drive. Internally, these files' values are simply stored as strings, meaning that when it comes to creating the Robot Framework Datadriver test, the program will simply search-and-replace predefined strings.
 - __Step 2__ will parse the OpenAPI YAML/JSON file and transfer its contents (variables, examples, return codes) into an internal dictionary.
   - The OpenAPI file's ``operationId`` field is considered to be the future test's name (excluding the HTTP operation code, e.g. PUT, GET etc). If an  API method is present in the file but misses the ``operationId``, the program will fail.
 - __Step 3__ is disabled per default and will write the Jira tickets if the user has specified a ``jira_access_key``. Note that this step will communicate directly with the Jira server URLs for Jira and Jira XRay. You may want/need to test the program's config extensively prior to being able to use this optional step.
 - __Step 4__ generates the DataDriver Excel file.
 - __Step 5__ and __Step 6__ generate the Robot Framework Test files (the actual Robot test plus an Include file)
+
+## How does the final Robot code work?
+
+The Robot Framework Datadriver processes the Excel file on a per-line basis. Due to each API call's previously determined ``operationId``, the program knows if an API call requires a request body to be sent to the API and which fields are to be included in that request body. So if the program 'knows' that a request body needs to be sent, it checks if a field (read: Excel cell) which belongs to this body has been populated or not. If it contains a value, it will add this field and its value to an internal dictionary - which will then be converted to a plain JSON body that is then to be sent to the API.
