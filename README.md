@@ -6,8 +6,8 @@ This program generates a full-fledged Excel-based Robot Framework Datadriver tes
 
 ## Features
   
-- Supports OpenAPI V3 YAML and JSON file formats. V2 file format support can be achieved through library reconfiguration.
-- The program will read any valid OpenAPI file and then tries to generate the following files:
+- Supports OpenAPI V3 YAML and JSON input file formats. V2 file format support can be achieved through library reconfiguration.
+- The program will read a valid OpenAPI file and then tries to generate the following output files for you:
   - A Robot Framework test file, containing all tests that are associated with this OpenAPI file
   - A generic RF 'include' file
   - An Excel file which will be used by the Robot Framework test as input data
@@ -33,5 +33,6 @@ This program generates a full-fledged Excel-based Robot Framework Datadriver tes
 
 ## Documentation
 
-- [Installation and Configuration, first run etc](docs/INSTALLATION.md)
+- [Installation and first program run](docs/INSTALLATION.md)
+- [Customization and program configuration](docs/CONFIGURATION.md)
 - [Command line parameters and known issues](docs/USAGE.md)
