@@ -520,7 +520,9 @@ def parse_openapi_spec(openapi_filename: str):
     # Try to parse the file. If the parse process fails, check if your 
     # OpenAPI file is compliant. See
     # https://github.com/RonnyPfannschmidt/prance#compatibility for further 
-    # information on this topic.
+    # information on this topic. For most cases, Integer-based keys are the
+    # root cause for parser errors - they are not compliant with the OpenAPI spec.
+    # Convert these integer values to string values and you should be fine.
     try:
         parser = ResolvingParser(openapi_filename)
     except:
@@ -539,10 +541,17 @@ def parse_openapi_spec(openapi_filename: str):
         for path in parser.specification["paths"]:
             operations = parser.specification["paths"][path]
             for operation in operations:
+                # any present tags in the OpenAPI file will later on be
+                # used as *** Tags *** for the RF test case
                 if "tags" in parser.specification["paths"][path][operation]:
                     tags = parser.specification["paths"][path][operation]["tags"]
                 else:
                     tags = ""
+                # The OpenAPI file's "summary" is going to be used as the
+                # RF test cases's [Documentatin] setting in the Excel file
+                # You might want to go for the "description" value instead (which is
+                # unused) but usually, it is way too long so I went for the 'summary'
+                # field instead
                 if "summary" in parser.specification["paths"][path][operation]:
                     summary = parser.specification["paths"][path][operation]["summary"]
                 else:
@@ -552,7 +561,8 @@ def parse_openapi_spec(openapi_filename: str):
                 else:
                     description = ""
 
-                # This is the test's identifying element - which should always be present
+                # This field represents our future Robot Framework test name. Unlike all
+                # other previous fields, this one is considered to be mandatory
                 if "operationId" in parser.specification["paths"][path][operation]:
                     operationid = parser.specification["paths"][path][operation]["operationId"]
                 else:
@@ -560,6 +570,7 @@ def parse_openapi_spec(openapi_filename: str):
                     logger.info(msg="ERROR - no operationId present in OpenAPI file, cannot continue")
                     raise ValueError("No operationId present in OpenAPI file, cannot continue")
 
+                # try to determine the required fields and their properties
                 required = properties = example = None
                 if "requestBody" in parser.specification["paths"][path][operation]:
                     requestbody = parser.specification["paths"][path][operation]["requestBody"]
@@ -576,8 +587,9 @@ def parse_openapi_spec(openapi_filename: str):
 
                 # try to retrieve the list of valid HTTP return codes and
                 # assume that the very first one in the list is the one that
-                # we want for our tests. This may or may not be valid for your
+                # we want to use for our tests. This may or may not be valid for your
                 # use case but we can at least add a default to the Excel list
+                # Do not generate an error if there is no return code defined
                 if "responses" in parser.specification["paths"][path][operation]:
                     responses = parser.specification["paths"][path][operation]["responses"]
                     if len(responses) > 0:
@@ -888,8 +900,8 @@ def write_robot_framework_includes_file(
     base_url = "BASE_URL_NOT_FOUND_AND_NEEDS_TO_BE_SET_MANUALLY"
 
     # Pattern for extracting the (correct) base URL
-    # this may not really be necessary as all target URLs do contain the
-    # same path. But for now, let's simply assume that it is required
+    # Obviously, this only works if your OpenAPI file does contain a set of
+    # URLs. You might need to amend the regex
     regex = r"https:\/\/api.*(\/.*\/.*)"
     for server in servers:
         url = server["url"]
@@ -931,7 +943,7 @@ def write_robot_framework_test_case_file(
     keyword_no_body_template: str,
 ):
     """
-    Writes the SDMS Robot Framework test case file
+    Writes the Robot Framework test case file
 
     Parameters
     ==========
@@ -1143,7 +1155,7 @@ def transform_openapi_to_robot(
     robot_target_filename = os.path.join(output_dir, target_filename + ".robot")
     excel_target_filename = os.path.join(output_dir, target_filename + ".xlsx")
 
-    # SDMS includes reference - will be updated with the matching base URL
+    # Includes reference - will be updated with the matching base URL
     includes_target_filename = os.path.join(output_dir, "includes.resource")
 
     # create the output directory if necessary
