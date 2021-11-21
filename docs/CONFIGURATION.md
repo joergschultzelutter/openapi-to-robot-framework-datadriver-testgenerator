@@ -27,9 +27,9 @@ This section is optional if you don't intend to use the Jira ticket generator.
 
 In order to configure the extended configuration for Jira, you need to retrieve configuration values __which are specific to your JIRA installation__. Please see [this article](https://community.atlassian.com/t5/Jira-Software-questions/Project-ID-and-Custom-Field-ID-on-next-gen-project/qaq-p/1095295) for additional details. In addition, this program assumes that you [have the Jira XRay plugin installed](https://www.getxray.app/). You can still use the program without XRay support but might be required to apply small changes to both code and template files
 
-Prerequisites for this configurationstep:
+Prerequisites for this configuration step:
 
-- Get your numeric Jira project ID
+- Determine your numeric Jira project ID
 - Get the ``customfield_...`` value for your Jira/XRay installation's ``Test Environments`` field. Dependent on your setup, you can use this field for e.g. passing environment variables from Jira/XRay to other connected system component.
 - In order to allow the program to create these tickets, you need to provide a Jira Access key to the program. Contact your administrator if necessary. The access key may look like this: ``dGVu9Y3lfcm9ib3Q6M08lKADt9vTVhnchhaUnQ9``
 
