@@ -41,11 +41,17 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# Codes for the Excel sheet's cells
-test_variables_color_code = "#bbbbbb"
-test_cases_color_code = "f9e4b7"
-optional_variable_color_code = "#99ee99"
+# Color codes for the Excel sheet's cells
+#
+# Color codes, related to JSON Request Body variables
+# "not included"
+test_variables_color_code = "bbbbbb"
+# "Field is part of Request Body but optional"
+optional_variable_color_code = "99ee99"
+# "Field is part of Request Body and required"
 required_variable_color_code = "ee9999"
+# Color code for test case, description, tags etc
+test_cases_color_code = "f9e4b7"
 
 # This is our Excel generator's start columm
 # We will start adding the test's variable columns at this position

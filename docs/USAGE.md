@@ -12,7 +12,8 @@ The following input parameter are supported:
 
 ## Known issues and constraints
 
-- The API REST command used in the program's template files is not present as a keyword; you need to amend this section in the program's templates.
+- The ``Send API Request``  command used in the program's template files is not present as a keyword and acts as a mere placeholder; __you need to amend this section in the program's templates__.
+- If your OpenAPI file contains information on the API's URL, the program tries to extract that content from the file and replace a placeholder in the future ``includes.resource`` file. If an URL could not be retrieved, you need to manually replace that placeholder.
 - The OpenAPI parser is VERY sensitive if you try to parse an OpenAPI file which deviates from the OpenAPI standards but may be accepted by other systems and software. The ``openapi-spec-validator`` [uses strict mode](https://github.com/RonnyPfannschmidt/prance#compatibility), meaning that e.g. no integer-based keys in the OpenAPI spec file are allowed. If the program crashes, then an error like this might be the reason.
 - The Robot demo code (not the actual parser itself) cannot deal with multi-layered JSON request bodies in an automated manner. The current approach focuses on fields on a single layer
 

@@ -9,17 +9,21 @@ This document describes the configuration and customization changes which you ma
   - two ``template_jira_...`` template files
   - five ``template_robot_..`` template files
 
-## Basic configuration (excluding Jira setup)
+## Basic configuration (excluding Jira setup) - MANDATORY
 
 - Edit the ``template_robot_..`` template files:
   - File ``template_robot_generic_includes.robot`` contains a placeholder for the API's base URL. Dependent on whether your OpenAPI file contains this information or not, the program will try to replace this value with the correct URL from the OpenAPI file. See function ``write_robot_framework_includes_file`` in the program for further details. In addition, you can add generic include content to this file.
-  - Files ``template_robot_keyword_without_request_body.robot`` and ``template_robot_keyword_with_request_body.robot`` contain the code for sending REST requests to the API. This is where the action happens - you may need to reconfigure the API call keyword, add some post-processing logic etc.
+  - Files ``template_robot_keyword_without_request_body.robot`` and ``template_robot_keyword_with_request_body.robot`` contain the code for sending REST requests to the API. 
+    - This is where the action happens - you may need to reconfigure the API call keyword, add some post-processing logic etc.
+    - The ``Send API Request``  command used in the program's template files is not present as a keyword and acts as a mere placeholder; __you need to amend this section in the program's templates__.
   - File ``template_robot_header.robot`` represents the future test's header content - read: declaration of the datadriver file, libraries etc. Normally, you don't need to apply any changes here.
   - File ``template_robot_footer.robot`` contains footer data which will be added to the generated test file at the bottom of the file. This file can contain e.g. additional keywords, declarations etc.
 
 With the exception of ``template_robot_footer.robot``, all files are considered as mandatory content. The ``footer`` file is optional and there will be no error if the footer file cannot be found.
 
-## Extended configuration (Jira setup)
+## Extended configuration (Jira setup) - OPTIONAL
+
+This section is optional if you don't intend to use the Jira ticket generator.
 
 In order to configure the extended configuration for Jira, you need to retrieve configuration values __which are specific to your JIRA installation__. Please see [this article](https://community.atlassian.com/t5/Jira-Software-questions/Project-ID-and-Custom-Field-ID-on-next-gen-project/qaq-p/1095295) for additional details. In addition, this program assumes that you [have the Jira XRay plugin installed](https://www.getxray.app/). You can still use the program without XRay support but might be required to apply small changes to both code and template files
 
@@ -63,3 +67,6 @@ There are two XRay dependencies which need to be amended:
 
 - remove the ``customfield_xxxx`` reference from the file
 - Amend the ``create_jira_tickets`` function in the code and disable the XRay API calls.
+
+
+Have a look at the program's [command line parameters and known issues](docs/USAGE.md)
