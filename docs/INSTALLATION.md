@@ -38,4 +38,7 @@ Sample output:
 
     Process finished with exit code 0
 
-If you receive this output, then the program has been properly configured. Now have a look at the [Program Configuration](CONFIGURATION.md) documentation for customization and (Jira) configuration steps.
+If you receive this output, then the program has been properly configured. 
+
+Now have a look at the [Program Configuration](CONFIGURATION.md) documentation for customization and (Jira) configuration steps.
+
