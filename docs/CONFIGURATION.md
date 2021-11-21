@@ -69,4 +69,4 @@ There are two XRay dependencies which need to be amended:
 - Amend the ``create_jira_tickets`` function in the code and disable the XRay API calls.
 
 
-Have a look at the program's [command line parameters and known issues](docs/USAGE.md)
+Have a look at the program's [command line parameters and known issues](USAGE.md)
