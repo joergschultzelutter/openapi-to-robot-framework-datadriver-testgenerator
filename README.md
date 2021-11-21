@@ -1,4 +1,4 @@
-# openapi-to-robot-framework-datadriver-testgenerator
+# OpenAPI to RobotFramework DataDriver test generator
 
 This program generates a fully-fledged Excel-based Robot Framework Datadriver test case from an OpenAPI file.
 
