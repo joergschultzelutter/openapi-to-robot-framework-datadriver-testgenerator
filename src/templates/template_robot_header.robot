@@ -52,3 +52,4 @@ Check DataDriver Library Version
 	
     # Check the version and fail the test if necessary
 	Run Keyword If	'${major}' == '1' and '${minor}' < '5'		Fatal Error	msg=Incorrect DataDriver installed. We need at least version 1.5.0. Present Version is '${ver}'
+
