@@ -44,7 +44,7 @@ This does _not_ mean that you cannot use the program for the initial test genera
 
 - The sample code assumes that your [robotframework-datadriver](https://github.com/Snooz82/robotframework-datadriver) version is 1.5.0 or later - which will be installed by default (but is not required by the actual generator itself). The Robot Framework demo template that comes with this repo makes _heavy_ usage of the Datadriver's [typed cells](https://github.com/Snooz82/robotframework-datadriver#ms-excel-and-typed-cells) option, meaning that you apply the desired target format for your input data directly to your respective Excel cell. For example, a cell containing the numeric value of 123 with an Excel _General_ format will be recognised as Integer value whereas the same value with an Excel _Text_ formatting will be treated as text. Booleans, Floats etc are supported. Some edge cases may not work out of the box and may require some manual magic, though.
     - For convenience purposes, the Robot Framework template code ensures that you run the correct version of the Robot Framework datadriver in order to avoid any future data misinterpretation.
-- If you use the Jira ticket generator option, be advised that for each run of the program, __new__ tickets will be generated __WITH EACH PROGRAM RUN__.
+- If you use the Jira ticket generator option, be advised that __new__ tickets will be generated __WITH EACH PROGRAM RUN__.
 
 ## How does this program work?
 
