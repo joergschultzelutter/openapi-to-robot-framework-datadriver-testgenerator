@@ -13,6 +13,7 @@ This program generates a fully-fledged Excel-based Robot Framework Datadriver te
   - An Excel file which will be used by the Robot Framework test as input data
   - Optional: generate Jira / XRay Test / Test Exceution tickets and associate them with the Robot Framework test
 - All input data is template-based, meaning that you can apply simple modifications to Jira / Robot template files which will then represent the foundation for the future Excel/Robot test file
+- All resulting files will no longer be dependent on the initial OpenAPI input file. The idea for this program is that it will generate the majority of required code for you and that you customize that code later on for your needs.
 
 ## Excel features
 
