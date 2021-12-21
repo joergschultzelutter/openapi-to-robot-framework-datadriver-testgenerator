@@ -3,7 +3,7 @@
 ## Installation
 
 - clone repository
-- ``pip install --upgrade -r dependencies.txt``
+- ``pip install --upgrade -r requirements.txt``
 
 This will install the following external dependencies:
 
