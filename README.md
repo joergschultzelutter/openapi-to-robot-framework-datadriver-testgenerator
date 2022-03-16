@@ -1,5 +1,7 @@
 # OpenAPI to RobotFramework DataDriver test generator
 
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black) [![CodeQL](https://github.com/joergschultzelutter/openapi-to-robot-framework-datadriver-testgenerator/actions/workflows/codeql.yml/badge.svg)](https://github.com/joergschultzelutter/openapi-to-robot-framework-datadriver-testgenerator/actions/workflows/codeql.yml)
+
 This program generates a fully-fledged Excel-based Robot Framework Datadriver test case from an OpenAPI file.
 
 ![Demo](docs/img/demo.jpg)
